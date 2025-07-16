@@ -58,3 +58,4 @@ if st.button("送信"):
                 st.subheader("回答結果")
                 st.write(result)
             except Exception as e:
+                st.error(f"エラーが発生しました: {e}")
