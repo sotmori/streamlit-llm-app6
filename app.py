@@ -1,7 +1,7 @@
 import os
 import streamlit as st
 from dotenv import load_dotenv
-from langchain.chat_models import ChatOpenAI
+from langchain.llms import OpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
@@ -14,14 +14,14 @@ if not api_key:
     st.error("環境変数 OPENAI_API_KEY が設定されていません。.env ファイルを確認してください。")
     st.stop()
 
-# initialize LLM
-llm = ChatOpenAI(
+# initialize LLM using core OpenAI (avoiding langchain_community dependency)
+llm = OpenAI(
     openai_api_key=api_key,
-    model_name="gpt-4o-mini",  # 適宜モデル名を変更
+    model_name="gpt-4o-mini",  # 必要に応じて変更
     temperature=0.0
 )
 
-# define prompt
+# define prompt template
 template = "{expert}として、次の質問に答えてください: {question}"
 prompt = PromptTemplate(
     input_variables=["expert", "question"],
