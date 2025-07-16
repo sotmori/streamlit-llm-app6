@@ -1,7 +1,7 @@
 import os
 import streamlit as st
 from dotenv import load_dotenv
-from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
@@ -15,7 +15,7 @@ if not api_key:
     st.stop()
 
 # initialize LLM using core OpenAI (avoiding langchain_community dependency)
-llm = OpenAI(
+llm = ChatOpenAI(
     openai_api_key=api_key,
     model_name="gpt-4o-mini",  # 必要に応じて変更
     temperature=0.0
@@ -58,4 +58,3 @@ if st.button("送信"):
                 st.subheader("回答結果")
                 st.write(result)
             except Exception as e:
-                st.error(f"エラーが発生しました: {e}")
